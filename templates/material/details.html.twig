@@ -15,6 +15,14 @@
                 {% for categorie in material.categories %}
                     <p>{{ categorie.name }}</p>
                 {% endfor %}
+                <h3>comments</h3>
+                {% for trade in trades %}
+                    <p>{{ trade.tenant.name }}</p>
+
+                    {% for comment in trade.comments %}
+                        <p>{{ comment.content }}</p>
+                    {% endfor %}
+                {% endfor %}
             </div>
 
     </div>

@@ -50,6 +50,7 @@ final class CommentFactory extends ModelFactory
             'author' => UserFactory::random(),
             'date' => self::faker()->dateTime(),
             'trade' => TradeFactory::random(),
+            'content'=>self::faker()->text(255),
         ];
     }
 

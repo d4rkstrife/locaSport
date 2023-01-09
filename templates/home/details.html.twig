@@ -19,12 +19,13 @@
 
     <div class="example-wrapper">
         <h1>LocaSport</h1>
-        {% for article in articles %}
-            <div>
-                <h2>{{ article.title }}</h2>
-                <p>{{ article.content }}</p>
-                <a href={{ path('app_home_details', {'id':article.id}) }}>Details</a>
-            </div>
-        {% endfor %}
+
+        <div>
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.content }}</p>
+
+
+        </div>
+
     </div>
 {% endblock %}

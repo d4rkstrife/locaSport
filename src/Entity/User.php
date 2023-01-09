@@ -41,6 +41,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Material::class, orphanRemoval: true)]
     private Collection $materials;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?ProfilPicture $profilPicture = null;
+
     public function __construct()
     {
         $this->trades = new ArrayCollection();
@@ -235,6 +241,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $material->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getProfilPicture(): ?ProfilPicture
+    {
+        return $this->profilPicture;
+    }
+
+    public function setProfilPicture(ProfilPicture $profilPicture): self
+    {
+        // set the owning side of the relation if necessary
+        if ($profilPicture->getUser() !== $this) {
+            $profilPicture->setUser($this);
+        }
+
+        $this->profilPicture = $profilPicture;
 
         return $this;
     }

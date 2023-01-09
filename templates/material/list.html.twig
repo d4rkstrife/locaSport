@@ -22,7 +22,8 @@
             <div>
                 <p>{{ material.name }}</p>
                 <p>{{ material.description }}</p>
-                <p>{{ material.uuid }}</p>
+                <p>{{ material.owner.name }}</p>
+
                 {% for categorie in material.categories %}
                     <p>{{ categorie.name }}</p>
 

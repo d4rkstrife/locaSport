@@ -26,6 +26,7 @@ class MaterialController extends AbstractController
     #[Route('/material/{uuid}', name: 'app_material_details')]
     public function materialDetails(Material $material): Response
     {
-        return $this->render('material/details.html.twig', ['material' => $material]);
+        $trades= $material->getTrades();
+        return $this->render('material/details.html.twig', ['material' => $material, 'trades'=>$trades]);
     }
 }
