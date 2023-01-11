@@ -16,11 +16,13 @@
     <body>
     <nav>
         <ul>
-            <li><a href={{ path('app_home') }}>Home</a></li>
-            <li><a href="{{ path('app_material_list') }}">Explorer</a></li>
-            <li>LogIn</li>
-            <li>SignIn</li>
 
+            <li><a href={{ path('app_home') }}>Home</a></li>
+            <li><a href={{ path('app_material_list') }}>Explorer</a></li>
+            {% if not app.user %}
+            <li><a href={{ path('app_login') }}>LogIn</a></li>
+            <li><a href={{ path('app_register') }}>SignIn</a></li>
+            {% endif %}
         </ul>
     </nav>
         {% block body %}{% endblock %}

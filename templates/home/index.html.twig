@@ -23,7 +23,7 @@
             <div>
                 <h2>{{ article.title }}</h2>
                 <p>{{ article.content }}</p>
-                <a href={{ path('app_home_details', {'id':article.id}) }}>Details</a>
+                <a href={{ path('app_article_details', {'id':article.id}) }}>Details</a>
             </div>
         {% endfor %}
     </div>

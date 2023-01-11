@@ -19,10 +19,4 @@ class HomeController extends AbstractController
         $articles = $this->articleRepository->findAll();
         return $this->render('home/index.html.twig', ['articles'=>$articles]);
     }
-
-    #[Route('/article/{id}', name: 'app_home_details')]
-    public function articleDetails(Article $article): Response
-    {
-        return $this->render('home/details.html.twig', ['article'=>$article]);
-    }
 }
