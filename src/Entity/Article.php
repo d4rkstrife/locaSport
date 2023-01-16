@@ -20,6 +20,9 @@ class Article
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
+    #[ORM\OneToOne(mappedBy: 'article', cascade: ['persist', 'remove'])]
+    private ?ArticlePicture $articlePicture = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,23 @@ class Article
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getArticlePicture(): ?ArticlePicture
+    {
+        return $this->articlePicture;
+    }
+
+    public function setArticlePicture(ArticlePicture $articlePicture): self
+    {
+        // set the owning side of the relation if necessary
+        if ($articlePicture->getArticle() !== $this) {
+            $articlePicture->setArticle($this);
+        }
+
+        $this->articlePicture = $articlePicture;
 
         return $this;
     }

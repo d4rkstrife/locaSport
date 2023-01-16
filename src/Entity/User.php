@@ -47,12 +47,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?ProfilPicture $profilPicture = null;
 
+
+
     public function __construct()
     {
         $this->trades = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->subjects = new ArrayCollection();
         $this->materials = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -273,4 +276,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }
