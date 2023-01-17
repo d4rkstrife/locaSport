@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MessageController!{% endblock %}
+
+{% block body %}
+<div>
+    {% for conversation in conversations %}
+        <p>{{ conversation.uuid }}</p>
+            <a href={{ path('app_message_details', {'uuid':conversation.uuid}) }}>Go</a>
+    {% endfor %}
+</div>
+{% endblock %}

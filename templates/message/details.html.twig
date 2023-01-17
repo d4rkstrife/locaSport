@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MessageDetails!{% endblock %}
+
+{% block body %}
+    <div>
+        {% for message in conversation.messages %}
+            <p>{{ message.content }}</p>
+            {% if message.sendBy == app.user %}
+                <p>You</p>
+            {% else %}
+                <p>{{ message.sendBy.name }}</p>
+            {% endif %}
+            <p>{{ message.createdAt|date }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
