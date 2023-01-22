@@ -1,0 +1,9 @@
+app:
+  home: "Accueil"
+  explore: "Explorer"
+  message: "Messages"
+  logIn: "Se connecter"
+  signIn: "S'inscrire"
+home:
+  title: "Trouvez. Louez. Profitez."
+  phrase: "Le site no1 de la location de materiel de sport entre particuliers."

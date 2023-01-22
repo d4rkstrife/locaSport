@@ -50,6 +50,7 @@ final class ConversationFactory extends ModelFactory
         return [
             'createdAt' => self::faker()->dateTime(),
             'uuid' => Uuid::v4(),
+            'title'=>self::faker()->title,
         ];
     }
 

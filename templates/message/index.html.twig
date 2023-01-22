@@ -4,6 +4,9 @@
 
 {% block body %}
 <div>
+    <div class="nav-invisible">
+
+    </div>
     {% for conversation in conversations %}
         <p>{{ conversation.uuid }}</p>
             <a href={{ path('app_message_details', {'uuid':conversation.uuid}) }}>Go</a>

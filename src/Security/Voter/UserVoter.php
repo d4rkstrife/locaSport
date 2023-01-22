@@ -12,14 +12,14 @@ class UserVoter extends Voter
     public function __construct(private Security $security){
 
     }
-    public const EDIT = 'EDIT';
+    public const ACCESS = 'ACCESS';
     public const VIEW = 'VIEW';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::EDIT, self::VIEW])
+        return in_array($attribute, [self::ACCESS, self::VIEW])
             && $subject instanceof \App\Entity\User;
     }
 
@@ -33,7 +33,7 @@ class UserVoter extends Voter
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
-            case self::EDIT:
+            case self::ACCESS:
                 if ($this->security->isGranted('ROLE_ADMIN')){
                     return true;
                 }

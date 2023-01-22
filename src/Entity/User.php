@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -27,6 +28,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\Regex(
+        pattern: "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
+        message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial"
+    )]
     private ?string $password = null;
 
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Trade::class)]
@@ -50,12 +55,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'sendBy', targetEntity: Message::class, orphanRemoval: true)]
     private Collection $sentMessages;
 
-    #[ORM\OneToMany(mappedBy: 'sendTo', targetEntity: Message::class, orphanRemoval: true)]
-    private Collection $receivedMessages;
-
     #[ORM\ManyToMany(targetEntity: Conversation::class, mappedBy: 'participants')]
     private Collection $conversations;
-
 
 
     public function __construct()
@@ -65,9 +66,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->subjects = new ArrayCollection();
         $this->materials = new ArrayCollection();
         $this->sentMessages = new ArrayCollection();
-        $this->receivedMessages = new ArrayCollection();
         $this->conversations = new ArrayCollection();
-
     }
 
     public function getId(): ?int
@@ -94,7 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -313,36 +312,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($sentMessage->getSendBy() === $this) {
                 $sentMessage->setSendBy(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Message>
-     */
-    public function getReceivedMessages(): Collection
-    {
-        return $this->receivedMessages;
-    }
-
-    public function addReceivedMessage(Message $receivedMessage): self
-    {
-        if (!$this->receivedMessages->contains($receivedMessage)) {
-            $this->receivedMessages->add($receivedMessage);
-            $receivedMessage->setSendTo($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReceivedMessage(Message $receivedMessage): self
-    {
-        if ($this->receivedMessages->removeElement($receivedMessage)) {
-            // set the owning side to null (unless already changed)
-            if ($receivedMessage->getSendTo() === $this) {
-                $receivedMessage->setSendTo(null);
             }
         }
 

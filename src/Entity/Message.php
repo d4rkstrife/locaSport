@@ -24,9 +24,6 @@ class Message
     #[ORM\JoinColumn(nullable: false)]
     private ?User $sendBy = null;
 
-    #[ORM\ManyToOne(inversedBy: 'receivedMessages')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $sendTo = null;
 
     #[ORM\ManyToOne(inversedBy: 'messages')]
     #[ORM\JoinColumn(nullable: false)]
@@ -69,18 +66,6 @@ class Message
     public function setSendBy(?User $sendBy): self
     {
         $this->sendBy = $sendBy;
-
-        return $this;
-    }
-
-    public function getSendTo(): ?User
-    {
-        return $this->sendTo;
-    }
-
-    public function setSendTo(?User $sendTo): self
-    {
-        $this->sendTo = $sendTo;
 
         return $this;
     }
