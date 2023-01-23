@@ -14,13 +14,22 @@
                 {% for material in materials %}
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                         <div class="card">
-                            <img src={{ asset('image/articleImage/default/defaultArticle.jpg') }} class="card-img-top" alt="...">
+                            {% if material.materialPictures|length>0 %}
+
+                                <img src={{ asset('image/materialImage/'~material.materialPictures[0].link) }} class="card-img-top"
+                                     alt="...">
+
+                            {% elseif material.materialPictures|length==0 %}
+                                <img src={{ asset('image/materialImage/default/defaultMaterial.jpg') }} class="card-img-top"
+                                     alt="...">
+                            {% endif %}
+
                             <div class="card-icon">
                                 <i class="ri-brush-4-line"></i>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title"><a href="">{{ material.name }}</a></h5>
-                                <p class="card-text">{{ material.description|slice(0,50) }}... }}</p>
+                                <p class="card-text">{{ material.description|slice(0,50) }}... </p>
                                 <a href={{ path('app_material_details', {'uuid':material.uuid}) }}>Details</a>
                             </div>
                         </div>
@@ -29,19 +38,6 @@
             </div>
 
         </div>
-        {#  {% for material in materials %}
-            <div>
-                <p>{{ material.name }}</p>
-                <p>{{ material.description }}</p>
-                <p>{{ material.owner.name }}</p>
-
-                {% for categorie in material.categories %}
-                    <p>{{ categorie.name }}</p>
-
-                {% endfor %}
-                <a href={{ path('app_material_details', {'uuid':material.uuid})}}>Details</a>
-            </div>{% endfor %}
-        #}
 
 
     </section>

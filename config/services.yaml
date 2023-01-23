@@ -6,6 +6,7 @@
 parameters:
     profilPictureDirectory: '%kernel.project_dir%/public/image/profilPicture'
     articleImageDirectory: '%kernel.project_dir%/public/image/articleImage'
+    materialImageDirectory: '%kernel.project_dir%/public/image/materialImage'
 
 services:
     # default configuration for services in *this* file

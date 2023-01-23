@@ -4,6 +4,7 @@ app:
   message: "Messages"
   logIn: "Se connecter"
   signIn: "S'inscrire"
+  new: "Publier une annonce"
 home:
   title: "Trouvez. Louez. Profitez."
   phrase: "Le site no1 de la location de materiel de sport entre particuliers."

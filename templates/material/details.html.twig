@@ -8,6 +8,9 @@
 
         </div>
         <div>
+            {% for materialPicture in material.materialPictures %}
+            <img src={{ asset('image/materialImage/'~ materialPicture.link) }}>
+            {% endfor %}
             <p>{{ material.name }}</p>
             <p>{{ material.description }}</p>
             {% for categorie in material.categories %}
