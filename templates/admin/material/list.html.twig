@@ -1,0 +1,32 @@
+{% extends './admin/base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <ul class="list-group">
+        <table class='table'>
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Owner</th>
+                <th scope="col">Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for material in materials %}
+                <tr>
+                    <td>{{ material.name }}</td>
+                    <td>{{ material.price }}</td>
+                    <td>{{ material.owner.name }}</td>
+                    <td><a href="{{ path('app_admin_material_details', {'uuid':material.uuid}) }}">Details</a></td>
+                </tr>
+            {% endfor %}
+
+
+            </tbody>
+
+        </table>
+
+    </ul>
+{% endblock %}

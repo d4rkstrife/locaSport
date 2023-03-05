@@ -10,7 +10,19 @@
     <section id="about-boxes" class="about-boxes">
         <div class="container" data-aos="fade-up">
 
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="form-row form-name-group">
+            <div class="form-group">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name,  {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+            <button type="submit" class="btn btn-success">{{ 'app.validate'|trans }}</button>
+            {{ form_end(form) }}
+            </div>
             <div class="row">
+
                 {% for material in materials %}
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                         <div class="card">
@@ -24,13 +36,11 @@
                                      alt="...">
                             {% endif %}
 
-                            <div class="card-icon">
-                                <i class="ri-brush-4-line"></i>
-                            </div>
+
                             <div class="card-body">
-                                <h5 class="card-title"><a href="">{{ material.name }}</a></h5>
+                                <h5 class="card-title">{{ material.name }}</h5>
                                 <p class="card-text">{{ material.description|slice(0,50) }}... </p>
-                                <a href={{ path('app_material_details', {'uuid':material.uuid}) }}>Details</a>
+                                <a href={{ path('app_material_details', {'uuid':material.uuid}) }}>{{ 'material.details'|trans }}</a>
                             </div>
                         </div>
                     </div>

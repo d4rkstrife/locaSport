@@ -23,7 +23,7 @@ class ArticleController extends AbstractController
         EntityManagerInterface $entityManager,
         SluggerInterface $slugger
     ): Response {
-        if(!$this->isGranted(UserVoter::EDIT, $this->getUser())){
+        if(!$this->isGranted(UserVoter::ACCESS, $this->getUser())){
             return $this->redirectToRoute('app_home');
         }
         $article = new Article();

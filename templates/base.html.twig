@@ -1,61 +1,83 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
 
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-    <header id="header" class="fixed-top ">
-        <div class="container d-flex align-items-center justify-content-between">
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
 
-            <h1 class="logo"><a href={{ path('app_home') }}>LocaSport</a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+<header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center justify-content-between">
 
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a class="nav-link scrollto" href={{ path('app_home') }}>{{ "app.home"|trans }}</a></li>
-                    <li><a class="nav-link scrollto"  href={{ path('app_material_list') }}>{{ "app.explore"|trans }}</a></li>
-                    {% if app.user %}
+        <h1 class="logo"><a href={{ path('app_home') }}>LocaSport</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a class="nav-link scrollto" href={{ path('app_home') }}>{{ "app.home"|trans }}</a></li>
+                <li><a class="nav-link scrollto" href={{ path('app_material_list') }}>{{ "app.explore"|trans }}</a></li>
+
+
+                {% if app.user %}
                     <li>
                         <a class="nav-link scrollto" href={{ path('app_message') }}>{{ "app.message"|trans }}</a>
                     </li>
+                    <li>
+                        <a class="nav-link scrollto" href={{ path('app_material_new') }}>{{ "app.new"|trans }}</a>
+                    </li>
+
+
+                    {% set roleUser = 'User' %}
+                    {% for role in app.user.roles %}
+
+                        {% if role == 'ROLE_ADMIN' %}
+                            {% set roleUser = 'Admin' %}
+
+                        {% endif %}
+                    {% endfor %}
+                    {% if roleUser == 'Admin' %}
                         <li>
-                            <a class="nav-link scrollto" href={{ path('app_material_new') }}>{{ "app.new"|trans }}</a>
+                            <a class="nav-link scrollto" href={{ path('app_admin') }}>Admin Panel</a>
                         </li>
                     {% endif %}
-                    {% if not app.user %}
-                        <li>
-                            <a class="nav-link scrollto" href={{ path('app_login') }}>{{ "app.logIn"|trans }}</a>
-                        </li>
-                        <li>
-                            <a class="nav-link scrollto" href={{ path('app_register') }}>{{ "app.signIn"|trans }}</a>
-                        </li>
-                    {% endif %}
 
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
+                {% endif %}
+                {% if not app.user %}
+                    <li>
+                        <a class="nav-link scrollto" href={{ path('app_login') }}>{{ "app.logIn"|trans }}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link scrollto" href={{ path('app_register') }}>{{ "app.signIn"|trans }}</a>
+                    </li>
+                {% endif %}
 
-        </div>
-    </header><!-- End Header -->
 
-        {% block body %}{% endblock %}
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
 
-    </body>
+    </div>
+</header><!-- End Header -->
+
+{% block body %}{% endblock %}
+
+</body>
 </html>

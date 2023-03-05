@@ -3,13 +3,65 @@
 {% block title %}Hello MessageController!{% endblock %}
 
 {% block body %}
-<div>
-    <div class="nav-invisible">
+    <div>
+        <div style="height:77px; background: rgba(21, 34, 43, 0.85)">
 
+        </div>
+        <section id="services" class="services section-bg">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Messages</h2>
+                </div>
+                {% for conversation in conversations %}
+                    <div class="row" data-aos="fade-up" data-aos-delay="200">
+                        <div class="col-md-6">
+                            <div class="icon-box">
+                                {% for participant in conversation.participants %}
+                                    {% if participant is not same as app.user %}
+                                        {% if participant.profilPicture %}
+                                            <img src={{ asset('image/profilPicture/'~participant.profilPicture.link) }}>
+                                        {% else %}
+                                            <img class="rounded-circle shadow-4-strong profile-picture"
+                                                 src={{ asset('image/profilPicture/default/default.png') }}>
+                                        {% endif %}
+                                        <h4>
+                                            <a href={{ path('app_message_details', {'uuid':conversation.uuid}) }}>{{ participant.name }}
+                                                about {{ conversation.title }}</a></h4>
+                                    {% endif %}
+                                {% endfor %}
+                                {% set lastMessage = conversation.messages|last %}
+                                <p>{{ lastMessage.content }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+        {# <main>
+            {% for conversation in conversations %}
+                <div class="discussion-row">
+                    <div>
+                        {% for participant in conversation.participants %}
+                            {% if participant is not same as app.user %}
+                                {% if participant.profilPicture %}
+                                    <img src={{ asset('image/profilPicture/'~participant.profilPicture.link) }}>
+                                {% else %}
+                                    <img class ="rounded-circle shadow-4-strong profile-picture" src={{ asset('image/profilPicture/default/default.png') }}>
+                                {% endif %}
+                                <p>{{ participant.name }} about {{ conversation.title }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    {% set lastMessage = conversation.messages|last %}
+                    <p>{{ lastMessage.content }}</p>
+
+
+                    <a href={{ path('app_message_details', {'uuid':conversation.uuid}) }}>Go</a>
+
+                </div>
+            {% endfor %}
+        </main> #}
     </div>
-    {% for conversation in conversations %}
-        <p>{{ conversation.uuid }}</p>
-            <a href={{ path('app_message_details', {'uuid':conversation.uuid}) }}>Go</a>
-    {% endfor %}
-</div>
 {% endblock %}

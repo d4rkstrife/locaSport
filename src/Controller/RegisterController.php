@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ProfilPicture;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Services\Localisation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -13,9 +14,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Uid\Uuid;
 
 class RegisterController extends AbstractController
 {
+    public function __construct(private Localisation $localisation)
+    {
+
+    }
     #[Route('/register', name: 'app_register')]
     public function addUser(
         Request $request,
@@ -51,10 +57,13 @@ class RegisterController extends AbstractController
                 $profilPicture->setLink($newFilename);
                 $user->setProfilPicture($profilPicture);
             }
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
+            //dd($form->get('address')->getData());
 
+            $coords = $this->localisation->getCoords($form->get('address')->getData());
+            $user->setLongitude($coords['longitude']);
+            $user->setLatitude($coords['latitude']);
             $user->setPassword($userPasswordHasher->hashPassword($user, $user->getPassword()));
+            $user->setUuid(Uuid::v4());
             $entityManager->persist($user);
             $entityManager->flush();
             return $this->redirectToRoute('app_home');

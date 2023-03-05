@@ -37,6 +37,7 @@ class UserVoter extends Voter
                 if ($this->security->isGranted('ROLE_ADMIN')){
                     return true;
                 }
+                return false;
                 break;
             case self::VIEW:
                 return true;

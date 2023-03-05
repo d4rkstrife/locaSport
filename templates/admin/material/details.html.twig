@@ -1,0 +1,76 @@
+{% extends './admin/base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <main id="main">
+        <section id="portfolio-details" class="portfolio-details">
+            <div class="container">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-8">
+                        <div class="portfolio-details-slider swiper">
+                            <div class="swiper-wrapper align-items-center">
+                                {% if material.materialPictures|length>0 %}
+                                    {% for materialPicture in material.materialPictures %}
+
+                                        <div class="swiper-slide">
+                                            <img src={{ asset('image/materialImage/'~ materialPicture.link) }} alt="material-image">
+                                        </div>
+                                    {% endfor %}
+
+                                {% elseif material.materialPictures|length==0 %}
+                                    <div class="swiper-slide">
+                                        <img src={{ asset('image/materialImage/default/defaultMaterial.jpg') }} class="card-img-top"
+                                             alt="...">
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="portfolio-info">
+                            <h3>{{ material.name }}</h3>
+                            <ul>
+                                <li>
+                                    <strong>{{ 'app.category'|trans }}</strong>: {% for categorie in material.categories %}
+                                        {{ categorie.name }},
+                                    {% endfor %}</li>
+                                <li><strong>{{ 'material.owner'|trans }}</strong>: {{ material.owner.name }}</li>
+                                <li><strong>{{ 'material.price'|trans }}</strong>: {{ material.price }}</li>
+                                <li><strong>{{ 'material.address'|trans }}</strong>: {{ address }}</li>
+
+                            </ul>
+                        </div>
+                        <div class="portfolio-description">
+                            <h2>{{ 'material.description'|trans }}</h2>
+                            <p>
+                                {{ material.description }}
+                            </p>
+                        </div>
+
+                    </div>
+                    {% for trade in material.trades %}
+                    <p>{{ trade.tenant.name }}</p>
+                    <p>{{ trade.date|date }}</p>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+        </section><!-- End Portfolio Details Section -->
+        {# <div class="row">
+                <div class="col-lg-6 mt-4 mt-lg-0">
+                    <h3>Commentaires</h3>
+                    <div>
+
+                    </div>
+                </div>
+            </div> #}
+
+    </main><!-- End #main -->
+{% endblock %}

@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,7 +37,10 @@ class UserType extends AbstractType
                 // every time you edit the Product details
                 'required' => false,
                 'multiple' => true,
-            ]);
+            ])
+            ->add('address', TextType::class, [
+                'mapped' => false,
+    ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
