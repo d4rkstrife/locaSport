@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Uid\Uuid;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
@@ -48,11 +49,16 @@ final class UserFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
+
         return [
             'email' => self::faker()->email(),
             'name'=> self::faker()->name(),
             'password' => 'Password1!',
             'roles' => [],
+            'uuid' => Uuid::v4(),
+            'latitude' => self::faker()->latitude,
+            'longitude' => self::faker()->longitude
+
         ];
     }
 

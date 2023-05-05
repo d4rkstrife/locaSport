@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MessageDetails!{% endblock %}
+
+{% block body %}
+    <div>
+        <div style="height:77px; background: rgba(21, 34, 43, 0.85)">
+
+        </div>
+        <main class="row full-conversation">
+            <div class="col-md-5 conversation-container">
+                <h2 class="conversation-title">{{ conversation.title }}</h2>
+
+                {% for participant in conversation.participants %}
+                    {% if participant is not same as app.user %}
+                        <p>{{ participant.name }}</p>
+                    {% endif %}
+                {% endfor %}
+                {% for message in conversation.messages %}
+                    {% if message.sendBy == app.user %}
+                        <p class="self-message">{{ message.content }}</p>
+                    {% else %}
+
+                        <p class="received-message">{{ message.content }}</p>
+                    {% endif %}
+                    <p>{{ message.createdAt|date }}</p>
+                {% endfor %}
+                {{ form_start(form) }}
+                {{ form_errors(form)}}
+                <div class="form-row form-name-group">
+                    <div class="form-group">
+                        {{ form_label(form.content) }}
+                        {{ form_widget(form.content,  {'attr': {'class': 'form-control'}})}}
+                        {{ form_errors(form.content) }}
+                    </div>
+
+
+                </div>
+                <button type="submit" class="btn btn-success">Valider</button>
+                {{ form_end(form) }}
+            </div>
+        </main>
+
+
+
+
+    </div>
+{% endblock %}

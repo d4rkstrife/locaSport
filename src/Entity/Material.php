@@ -38,10 +38,14 @@ class Material
     #[ORM\Column(type: 'uuid')]
     private ?Uuid $uuid = null;
 
+    #[ORM\OneToMany(mappedBy: 'material', targetEntity: MaterialPicture::class, orphanRemoval: true)]
+    private Collection $materialPictures;
+
     public function __construct()
     {
         $this->trades = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->materialPictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -162,6 +166,36 @@ class Material
     public function setUuid(Uuid $uuid): self
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MaterialPicture>
+     */
+    public function getMaterialPictures(): Collection
+    {
+        return $this->materialPictures;
+    }
+
+    public function addMaterialPicture(MaterialPicture $materialPicture): self
+    {
+        if (!$this->materialPictures->contains($materialPicture)) {
+            $this->materialPictures->add($materialPicture);
+            $materialPicture->setMaterial($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaterialPicture(MaterialPicture $materialPicture): self
+    {
+        if ($this->materialPictures->removeElement($materialPicture)) {
+            // set the owning side to null (unless already changed)
+            if ($materialPicture->getMaterial() === $this) {
+                $materialPicture->setMaterial(null);
+            }
+        }
 
         return $this;
     }

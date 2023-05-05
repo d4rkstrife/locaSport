@@ -1,0 +1,28 @@
+app:
+  category: "Catégorie"
+  home: "Accueil"
+  explore: "Explorer"
+  message: "Messages"
+  logIn: "Se connecter"
+  signIn: "S'inscrire"
+  validate: "Valider"
+  new: "Publier une annonce"
+  sendMessage: "Envoyer un message"
+  messageContent: "Votre message"
+  users: "Utilisateurs"
+  post: "Articles"
+  materials: "Materiel"
+home:
+  title: "Trouvez. Louez. Profitez."
+  phrase: "Le site no1 de la location de materiel de sport entre particuliers."
+material:
+  details: 'Détails'
+  owner: 'Propriétaire'
+  price: 'Prix'
+  description : "Description"
+  name: "Nom"
+  address: "Adresse"
+  distance: 'Distance'
+article:
+  title: "Titre"
+  content: "Contenu"

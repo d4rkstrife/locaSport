@@ -4,22 +4,65 @@
 
 {% block body %}
 
-    <div class="container-fluid">
-        <h1>Les bons plans</h1>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+<section id="hero">
+    <div class="hero-container" data-aos="fade-up" data-aos-delay="150">
+        <h1>{{ "home.title"|trans }}</h1>
+        <h2>{{ "home.phrase"|trans }}</h2>
+        {# <div class="d-flex">
+                <a href="#about" class="btn-get-started scrollto">Get Started</a>
+                <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+            </div> #}
+    </div>
+</section>
+<section id="portfolio" class="portfolio">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Le coin des affaires</h2>
+            <p>Nous avons déniché ces offres pour vous</p>
+        </div>
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
             {% for article in articles %}
-            <div class="col">
-                <div class="card h-100">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ article.title }}</h5>
-                        <p class="card-text">{{ article.content }}</p>
-                        <a href={{ path('app_article_details', {'id':article.id}) }}>Details</a>
+            <div class="col-lg-4 col-md-6 portfolio-item filter-card" style="position: relative">
+                {% if article.articlePicture %}
+                    <img src={{ asset('image/articleImage/' ~ article.articlePicture.link) }} class="img-fluid"
+                         alt="...">
+                {% else %}
+                    <img src={{ asset('image/articleImage/default/defaultArticle.jpg') }} class="img-fluid"
+                         alt="...">
+                {% endif %}
+                <div class="portfolio-info">
+                    <h4>{{ article.title }}</h4>
+                    <p>{{ article.content|slice(0,50) }}...</p>
+                    <a href={{ path('app_article_details', {'id':article.id}) }} style="color:white">Details</a>
                     </div>
                 </div>
+                {% endfor %}
             </div>
+        </div>
+    </section>
+    {# <div class="container-fluid">
+        <img src={{ asset('./image/home_image.jpg') }} class="img-fluid homepage-image" alt="...">
+        <h1>Les bons plans</h1>
+        <div class="article_container">
+            {% for article in articles %}
+                <div class="card article_card" >
+                    {% if article.articlePicture %}
+                        <img src={{ asset('image/articleImage/' ~ article.articlePicture.link) }} class="card-img-top"
+                             alt="...">
+                        {% else %}
+                            <img src={{ asset('image/articleImage/default/defaultArticle.jpg') }} class="card-img-top"
+                                 alt="...">
+                    {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ article.title }}</h5>
+                            <p class="card-text">{{ article.content|slice(0,70) }}...</p>
+                            <a href={{ path('app_article_details', {'id':article.id}) }} class="btn btn-primary">Details</a>
+                        </div>
+                </div>
             {% endfor %}
         </div>
 
-    </div>
+    </div> #}
 {% endblock %}

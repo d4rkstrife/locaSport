@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
+use Symfony\Component\Uid\Uuid;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
@@ -49,6 +50,7 @@ final class CategoryFactory extends ModelFactory
         return [
             'description' => self::faker()->text(255),
             'name' => self::faker()->text(20),
+            'uuid' => Uuid::v4(),
         ];
     }
 

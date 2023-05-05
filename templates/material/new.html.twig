@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MaterialController!{% endblock %}
+
+{% block body %}
+    <div>
+        <div style="height:77px; background: rgba(21, 34, 43, 0.85); position:sticky; top:0;">
+
+        </div>
+        {{ form_start(form) }}
+        {{ form_errors(form)}}
+        <div class="form-row form-name-group">
+            <div class="form-group">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name,  {'attr': {'class': 'form-control'}})}}
+                {{ form_errors(form.name) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description,  {'attr': {'class': 'form-control'}})}}
+                {{ form_errors(form.description) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.price) }}
+                {{ form_widget(form.price,  {'attr': {'class': 'form-control'}})}}
+                {{ form_errors(form.price) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.materialPicture) }}
+                {{ form_widget(form.materialPicture,  {'attr': {'class': 'form-control'}})}}
+                {{ form_errors(form.materialPicture) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.categories) }}
+                {{ form_widget(form.categories,  {'attr': {'class': 'form-control'}})}}
+                {{ form_errors(form.categories) }}
+            </div>
+
+        </div>
+        <button type="submit" class="btn btn-success">Valider</button>
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

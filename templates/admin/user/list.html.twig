@@ -1,0 +1,43 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+    <div>
+
+        <ul class="list-group">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Mail</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        {% set roleUser = 'User' %}
+                        {% for role in user.roles %}
+
+                            {% if role == 'ROLE_ADMIN' %}
+                                {% set roleUser = 'Admin' %}
+
+                            {% endif %}
+                        {% endfor %}
+                        <td>{{ roleUser }}</td>
+                        <td><a href="{{ path('app_admin_user_details', {'uuid':user.uuid}) }}">Details</a></td>
+                    </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+
+        </ul>
+
+    </div>
+{% endblock %}
