@@ -108,19 +108,39 @@ class MaterialController extends AbstractController
                     'longitude' => $material->getOwner()->getLongitude()
                 ]
             );
-
         }
         $address = $this->localisation->getAddress(
             $material->getOwner()->getLatitude(),
             $material->getOwner()->getLongitude()
         );
         $trades = $material->getTrades();
-        return $this->render('material/details.html.twig', ['material' => $material, 'trades' => $trades, 'address' => $address, 'distance' => $distance]);
+        return $this->render(
+            'material/details.html.twig',
+            ['material' => $material, 'trades' => $trades, 'address' => $address, 'distance' => $distance]
+        );
     }
 
-    private function getDoctrine()
+    #[Route('/materials/search', name: 'app_material_search')]
+    public function search(Request $request, EntityManagerInterface $entityManager): Response
     {
+//        dd($request);
+        $query = $request->query->get('q');
+//        dd($query);
+        $materials = $entityManager->getRepository(Material::class)->createQueryBuilder('a')
+            ->where('a.name LIKE :query')
+            ->orWhere('a.description LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->getQuery()
+            ->getResult();
+
+//        dd($materials);
+        return $this->render('material/research.html.twig', ['materials' => $materials]);
     }
+
+
+//    private function getDoctrine()
+//    {
+//    }
 
 
 }

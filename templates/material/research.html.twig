@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MaterialController!{% endblock %}
+
+{% block body %}
+<div>
+    <div style="height:77px; background: rgba(21, 34, 43, 0.85); position:sticky; top:0;">
+
+    </div>
+    <section id="about-boxes" class="about-boxes">
+        <div class="container" data-aos="fade-up">
+            <div class="row">
+
+                {% for material in materials %}
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card">
+                            {% if material.materialPictures|length>0 %}
+
+                                <img src={{ asset('image/materialImage/'~material.materialPictures[0].link) }} class="card-img-top"
+                                     alt="...">
+
+                            {% elseif material.materialPictures|length==0 %}
+                                <img src={{ asset('image/materialImage/default/defaultMaterial.jpg') }} class="card-img-top"
+                                     alt="...">
+                            {% endif %}
+
+
+                            <div class="card-body">
+                                <h5 class="card-title">{{ material.name }}</h5>
+                                <p class="card-text">{{ material.description|slice(0,50) }}... </p>
+                                <a href={{ path('app_material_details', {'uuid':material.uuid}) }}>{{ 'material.details'|trans }}</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+    </section>
+    {% endblock %}
