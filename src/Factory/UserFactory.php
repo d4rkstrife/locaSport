@@ -56,8 +56,8 @@ final class UserFactory extends ModelFactory
             'password' => 'Password1!',
             'roles' => [],
             'uuid' => Uuid::v4(),
-            'latitude' => self::faker()->latitude,
-            'longitude' => self::faker()->longitude
+            'latitude' => 45.79383590687296,
+            'longitude' => 5.336140985251041,
 
         ];
     }

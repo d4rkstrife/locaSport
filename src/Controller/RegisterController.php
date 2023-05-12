@@ -57,7 +57,6 @@ class RegisterController extends AbstractController
                 $profilPicture->setLink($newFilename);
                 $user->setProfilPicture($profilPicture);
             }
-            //dd($form->get('address')->getData());
 
             $coords = $this->localisation->getCoords($form->get('address')->getData());
             $user->setLongitude($coords['longitude']);
@@ -66,7 +65,8 @@ class RegisterController extends AbstractController
             $user->setUuid(Uuid::v4());
             $entityManager->persist($user);
             $entityManager->flush();
-            return $this->redirectToRoute('app_home');
+            $this->addFlash('success', "Vous êtes enregistré. Veuillez vous connecter");
+            return $this->redirectToRoute('app_login');
         }
         return $this->render('register/add.html.twig', [
             'form' => $form,

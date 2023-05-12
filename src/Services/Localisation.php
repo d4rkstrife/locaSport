@@ -44,7 +44,7 @@ class Localisation
         curl_close($ch);
 
         $apiResult = json_decode($json, true);
-        dd($apiResult);
+//        dd($apiResult);
         if(!$apiResult){
             //TODO return if no answer from API
             dd('tutu');

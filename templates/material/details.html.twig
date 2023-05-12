@@ -47,8 +47,9 @@
                                     <li><strong>{{ 'material.owner'|trans }}</strong>: {{ material.owner.name }}</li>
                                     <li><strong>{{ 'material.price'|trans }}</strong>: {{ material.price }}</li>
                                     <li><strong>{{ 'material.address'|trans }}</strong>: {{ address }}</li>
-
+                                    {% if app.user %}
                                     <li><strong>{{ 'material.distance'|trans }}</strong>: {{ distance|round }}km</li>
+                                    {% endif %}
                                 </ul>
                             </div>
                             <div class="portfolio-description">

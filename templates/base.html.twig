@@ -68,11 +68,30 @@
                         <a class="nav-link scrollto" href={{ path('app_register') }}>{{ "app.signIn"|trans }}</a>
                     </li>
                 {% endif %}
+                <li>
+                    <form action="{{ path('app_material_search') }}" method="get">
+                        <input type="text" name="q" placeholder="Search...">
+                        <button type="submit">Search</button>
+                    </form>
+                </li>
 
 
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
+        <div>
+            {% for flash_message in app.session.flashBag.get('success') %}
+                <div class="alert alert-success" role="alert">
+                    <strong>{{ "flash.success"|trans }}</strong> {{ flash_message }}
+                </div>
+            {% endfor %}
+
+            {% for flash_message in app.session.flashBag.get('error') %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>{{ "flash.alert"|trans }}</strong> {{ flash_message }}
+                </div>
+            {% endfor %}
+        </div>
 
     </div>
 </header><!-- End Header -->

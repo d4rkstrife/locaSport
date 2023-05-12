@@ -26,3 +26,6 @@ material:
 article:
   title: "Titre"
   content: "Contenu"
+flash:
+  success: "Superbe !"
+  alert: "Oops ! "
